@@ -22,11 +22,14 @@ const webhooks = new WebhooksApi({
   secret: SECRET
 });
 
+webhooks.on('error', (error) => {
+  console.log(`Error occured in "${error.event.name} handler: ${error.stack}"`)
+})
+
 webhooks.on('*', ({id, name, payload}) => {
 
 	console.log(id, name, 'event received');
 	console.log(payload);
-
 })
 
 app.use(bodyParser.urlencoded({ extended: false }));
