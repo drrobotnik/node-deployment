@@ -28,12 +28,32 @@ webhooks.on('error', (error) => {
 
 webhooks.on('*', ({id, name, payload}) => {
 
-	console.log(id, name, 'event received');
-	console.log(payload);
-})
+	const {
+		commits,
+		repository: { name: repo_name = "bar" }
+	} = payload;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+	console.log(`Recieving web hook for the ${repo_name} repository!`);
+
+	console.log("Pulling files");
+
+	const git = `git -C ${APP_PATH}`;
+	const reset = `${git} reset --hard`;
+	const clean = `${git} clean -df`;
+	const pull = `$git pull -f`;
+
+	// Pass through the corresponding stdio stream to/from the parent process.
+	const execOptions = { stdio: 'inherit' };
+
+	console.log(commits);
+
+	exec(`${reset} && ${clean} && ${pull}`, execOptions );
+
+	if( DOWNSTREAM_JOB_PATH ) {
+		// Allow for configuration specific downstream jobs to be executed.
+		exec( DOWNSTREAM_JOB_PATH, execOptions );
+	}
+})
 
 app.use('/deploy', webhooks.middleware);
 
