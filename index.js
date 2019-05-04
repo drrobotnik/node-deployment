@@ -23,7 +23,7 @@ const webhooks = new WebhooksApi({
 });
 
 webhooks.on('error', (error) => {
-  console.log(`Error occured in "${error.event.name} handler: ${error.stack}"`)
+  console.log(`Uncredentialled request`);
 })
 
 webhooks.on('*', ({id, name, payload}) => {
