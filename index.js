@@ -1,6 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const { execSync: exec } = require('child_process');
 const WebhooksApi = require('@octokit/webhooks');
 const app = express();
 require('dotenv').config();
