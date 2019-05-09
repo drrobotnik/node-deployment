@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "test": "jest test"
+    "start": "node . --quiet",
+    "test": "jest test",
+    "test:coverage": "jest test --coverage"
   },
   "author": "",
   "license": "ISC",
