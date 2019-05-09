@@ -4,6 +4,7 @@ const { execSync: exec } = require('child_process');
 const WebhooksApi = require('@octokit/webhooks');
 const app = express();
 require('dotenv').config();
+const deploy = require('./lib/deploy/deploy');
 
 const {
 	APP_PATH,
