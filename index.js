@@ -27,7 +27,7 @@ webhooks.on('error', (error) => {
   console.log(`Uncredentialled request`);
 })
 
-webhooks.on('*', ({id, name, payload}) => deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH));
+webhooks.on('*', ({payload}) => deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH));
 
 app.use('/deploy', webhooks.middleware);
 
