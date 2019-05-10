@@ -41,7 +41,7 @@ webhooks.on('*', ({ id, name, payload}) => {
 webhooks.on('pull_request', ({payload}) => {
 	const {action, pull_request } = payload;
 	if( action === 'closed' && pull_request.merged === true ) {
-		startDeployment(pull_request, octokit);
+		startDeployment(payload, octokit);
 	}
 });
 
