@@ -5,16 +5,16 @@ const app = express();
 require('dotenv').config();
 const deploy = require('./lib/deploy/deploy');
 const slog = require('./lib/slog/slog');
+
 const {
 	APP_PATH,
 	DOWNSTREAM_JOB_PATH,
 	REPO_NAME,
 	SECRET,
 	SERVER_PORT,
-	TOKEN,
 } = process.env;
 
-if( !APP_PATH || !REPO_NAME || !SECRET || !TOKEN || !SERVER_PORT ) {
+if( !APP_PATH || !REPO_NAME || !SECRET || !SERVER_PORT ) {
 	console.error('Please configure the application.');
 	process.exit(0);
 }
