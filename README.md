@@ -5,8 +5,9 @@
 Add the `/deploy/` endpoint to nginx inside `server {}`
 
 ```
-include $document_root/node_deployment/nginx/deploy.conf;
+include <PATH>/node_deployment/nginx/deploy.conf;
 ```
+<sub>* replace `<PATH>` with the full path to this project.</sub>
 
 ## Configure the environment
 
