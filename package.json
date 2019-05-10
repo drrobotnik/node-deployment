@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node" : ">=6.0.0 <11",
-    "npm" : ">=3.10.10 <7"
+    "node": ">=6.0.0 <11",
+    "npm": ">=3.10.10 <7"
   },
   "main": "index.js",
   "scripts": {
     "start": "node . --quiet",
+    "start:pm2": "pm2 start npm -- start",
     "test": "jest test",
     "test:coverage": "jest test --coverage"
   },
@@ -19,6 +20,7 @@
     "@octokit/webhooks": "^6.1.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
+    "pm2": "^3.5.0",
     "yargs": "^13.2.2"
   },
   "devDependencies": {
