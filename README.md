@@ -32,3 +32,11 @@ rename `.env.sample` to `.env`, and fill in the environmental variables that wil
 pm2 is a process manager for node which will keep the process alive daemonized. Most documentation will tell you to install it globally, but instead use npx.
 
 `npx pm2 start npm`
+
+### Resources
+https://developer.github.com/v3/activity/events/types/#pullrequestevent
+https://developer.github.com/v3/activity/events/types/#pushevent
+https://developer.github.com/v3/activity/events/types/#deploymentevent
+
+https://developer.github.com/v3/guides/delivering-deployments/
+https://github.com/github/platform-samples/blob/master/api/ruby/delivering-deployments/server.rb
