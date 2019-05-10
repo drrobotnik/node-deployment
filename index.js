@@ -13,6 +13,7 @@ const {
 	REPO_NAME,
 	SECRET,
 	SERVER_PORT,
+	TOKEN,
 } = process.env;
 
 if( !APP_PATH || !REPO_NAME || !SECRET || !TOKEN || !SERVER_PORT ) {
