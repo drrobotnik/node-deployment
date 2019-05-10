@@ -1,8 +1,13 @@
 const express = require('express');
 const WebhooksApi = require('@octokit/webhooks');
+const Octokit = require('@octokit/rest')
 const app = express();
 require('dotenv').config();
 const deploy = require('./lib/deploy/deploy');
+const startDeployment = require('./lib/deploy/deploy-start');
+const processDeployment = require('./lib/deploy/deploy-process');
+
+const prIsMerged = (action, state) => action === 'closed' && state === "merged";
 
 const {
 	APP_PATH,
@@ -17,15 +22,32 @@ if( !APP_PATH || !REPO_NAME || !SECRET || !SERVER_PORT ) {
 	process.exit(0);
 }
 
+const octokit = new Octokit({
+	auth: SECRET
+});
+
 const webhooks = new WebhooksApi({
   secret: SECRET
 });
 
 webhooks.on('error', (error) => {
-  console.log(`Uncredentialled request`);
-})
+  console.log(error);
+});
 
-webhooks.on('*', ({payload}) => deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH));
+//webhooks.on('*', ({payload}) => deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH));
+
+webhooks.on('pull_request', ({payload}) => {
+	if( prIsMerged(payload.action, payload.pull_request.state) ) {
+		startDeployment(payload, octokit);
+	}
+});
+
+webhooks.on('deployment', ({payload}) => {
+	processDeployment(payload, 'pending', octokit);
+	deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH, ()=>{processDeployment(payload, 'success', octokit);})
+});
+
+webhooks.on('deployment_status', ({payload}) => updateDeploymentStatus(payload, octokit));
 
 app.use('/deploy', webhooks.middleware);
 
