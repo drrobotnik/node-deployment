@@ -6,7 +6,7 @@ require('dotenv').config();
 const deploy = require('./lib/deploy/deploy');
 const startDeployment = require('./lib/deploy/deploy-start');
 const processDeployment = require('./lib/deploy/deploy-process');
-
+const slog = require('./lib/slog/slog');
 const {
 	APP_PATH,
 	DOWNSTREAM_JOB_PATH,
