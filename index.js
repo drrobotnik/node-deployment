@@ -47,7 +47,7 @@ webhooks.on('pull_request', ({payload}) => {
 
 webhooks.on('deployment', ({payload}) => {
 	processDeployment(payload, 'pending', octokit);
-	deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH, ()=>{processDeployment(payload, 'success', octokit);})
+	deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH, ()=>{ processDeployment(payload, 'success', octokit); })
 });
 
 webhooks.on('deployment_status', ({payload}) => updateDeploymentStatus(payload, octokit));
