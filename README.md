@@ -31,7 +31,7 @@ rename `.env.sample` to `.env`, and fill in the environmental variables that wil
 
 pm2 is a process manager for node which will keep the process alive daemonized. Most documentation will tell you to install it globally, but instead use npx.
 
-`npx pm2 start npm`
+`npm run pm2:start`
 
 ### Resources
 https://developer.github.com/v3/activity/events/types/#pullrequestevent
