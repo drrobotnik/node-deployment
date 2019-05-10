@@ -8,6 +8,7 @@ const slog = require('./lib/slog/slog');
 
 const {
 	APP_PATH,
+	BRANCH,
 	DOWNSTREAM_JOB,
 	REPO_NAME,
 	SECRET,
@@ -35,8 +36,8 @@ webhooks.on('pull_request', ({payload}) => {
 	const {action, pull_request } = payload;
 	// output the status of the PR.
 	slog( `Pull Request ${action}, ${pull_request.merged}` );
-	if( action === 'closed' && pull_request.merged === true ) {
-		deploy(payload, APP_PATH, DOWNSTREAM_JOB);
+	if( action === 'closed' && pull_request.merged === true && pull_request.base.ref === BRANCH ) {
+		deploy(payload, APP_PATH, BRANCH, DOWNSTREAM_JOB);
 	}
 });
 
