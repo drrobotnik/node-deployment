@@ -9,7 +9,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node . --quiet",
-    "start:pm2": "pm2 start npm -- start",
+    "pm2:start": "pm2 start npm -- start",
+    "pm2:status": "pm2 ps",
+    "pm2:stop": "pm2 stop npm",
+    "pm2:log": "pm2 logs npm --lines 1000",
     "test": "jest test",
     "test:coverage": "jest test --coverage"
   },
