@@ -15,13 +15,13 @@ const {
 	SERVER_PORT,
 } = process.env;
 
-if( !APP_PATH || !REPO_NAME || !SECRET || !SERVER_PORT ) {
+if( !APP_PATH || !REPO_NAME || !SECRET || !TOKEN || !SERVER_PORT ) {
 	console.error('Please configure the application.');
 	process.exit(0);
 }
 
 const octokit = new Octokit({
-	auth: SECRET
+	auth: TOKEN
 });
 
 const webhooks = new WebhooksApi({
