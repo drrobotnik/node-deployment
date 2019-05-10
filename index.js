@@ -7,8 +7,6 @@ const deploy = require('./lib/deploy/deploy');
 const startDeployment = require('./lib/deploy/deploy-start');
 const processDeployment = require('./lib/deploy/deploy-process');
 
-const prIsMerged = (action, state) => action === 'closed' && state === "merged";
-
 const {
 	APP_PATH,
 	DOWNSTREAM_JOB_PATH,
@@ -37,10 +35,12 @@ webhooks.on('error', (error) => {
 //webhooks.on('*', ({payload}) => deploy(payload, APP_PATH, DOWNSTREAM_JOB_PATH));
 webhooks.on('*', ({ id, name, payload}) => {
 	console.log(id, name);
+
 });
 
 webhooks.on('pull_request', ({payload}) => {
-	if( prIsMerged(payload.action, payload.pull_request.state) ) {
+	const {action, pull_request:{ merged }} = payload;
+	if( action === 'closed' && merged === "merged" ) {
 		startDeployment(payload, octokit);
 	}
 });
